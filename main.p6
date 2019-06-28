@@ -2,7 +2,7 @@
 
 role Term {
     method parse (Str $str, &parse) { ... }
-    method print (Int $indent = 0) { ... }
+    method print (Str $indent) { ... }
 }
 
 class Ap does Term {
@@ -13,21 +13,19 @@ class Ap does Term {
         return unless $str.substr(0, 1) eq '('; # A term must start with a '('!
         
         my ($len1, $left) = (parse $str.substr(1) // return);
-
         my $rest = $str.substr($len1 + 1);
 
         my ($len2, $right) = (parse $rest // return);
-
         return unless $rest.substr($len2, 1) eq ')'; # A term must end in a ')'!
 
         return 1 + $len1 + $len2 + 1,
             self.new(left => $left, right => $right);
     }
 
-    method print(Int $indent = 0) {
-        say ' ' x $indent*2, 'Ap: ';
-        $.left.print($indent + 1);
-        $.right.print($indent + 1);
+    method print(Str $indent = "") {
+        say $indent ~ 'Ap: ';
+        $.left.print($indent ~ '|');
+        $.right.print($indent ~ '|');
     }
 }
 
@@ -43,9 +41,7 @@ class Var does Term {
         .chars, self.new(len => .chars, name => .Str) with get-var $str;
     }
 
-    method print(Int $indent = 0) {
-        say ' ' x $indent*2, $.name;
-    }
+    method print(Str $indent = "") { say $indent ~ $.name; }
 
     method Str { $.name }
 }
@@ -85,9 +81,9 @@ class Abstr does Term {
         return $total-len, add-abstractions $term, $vars;
     }
 
-    method print(Int $indent = 0) {
-        say ' ' x $indent*2 ~ "λ $.var";
-        $.term.print($indent + 1);
+    method print(Str $indent = "") {
+        say $indent ~ "λ $.var";
+        $.term.print($indent ~ '  ');
     }
 }
 
