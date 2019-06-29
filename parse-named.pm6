@@ -1,4 +1,6 @@
-use term-defs;
+unit module parse-named;
+
+use named-terms;
 
 sub parse-var(Str $str) {
     with $str ~~ /^<alpha><digit>*/ -> $match {
