@@ -41,7 +41,7 @@ class Abstr is export {
     has Int $.depth;
 
     method print(@context, Str $indent = "") {
-        say $indent ~ 'λ ' ~ @context[$.depth - 0];
+        say $indent ~ 'λ ' ~ @context[$.depth - 1];
 
         $.term.print(@context, $indent ~ '  ');
     }
