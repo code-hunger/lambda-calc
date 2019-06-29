@@ -1,5 +1,11 @@
 unit module nameless-terms;
 
+class Var { ... };
+class Ap { ... };
+class Abstr { ... };
+
+subset Term where Var | Abstr | Ap;
+
 class Var is export {
     has Int $.id;
 
@@ -10,8 +16,8 @@ class Var is export {
 }
 
 class Ap is export {
-    has $.left;
-    has $.right;
+    has Term $.left;
+    has Term $.right;
 
     method print(@context, Str $indent = "") {
         say $indent ~ 'Ap: ';
@@ -21,7 +27,7 @@ class Ap is export {
 }
 
 class Abstr is export {
-    has $.term;
+    has Term $.term ;
 
     method print(@context, Str $indent = "") {
         say $indent ~ "λ";

@@ -1,8 +1,14 @@
 unit module named-terms;
 
+class Var { ... };
+class Ap { ... };
+class Abstr { ... };
+
+subset Term where Var | Abstr | Ap;
+
 class Ap is export {
-    has $.left;
-    has $.right;
+    has Term $.left;
+    has Term $.right;
 
     method print(Str $indent = "") {
         say $indent ~ 'Ap: ';
@@ -20,8 +26,8 @@ class Var is export {
 }
 
 class Abstr is export {
-    has $.var;
-    has $.term;
+    has Var $.var;
+    has Term $.term;
 
     method print(Str $indent = "") {
         say $indent ~ "λ $.var";
