@@ -1,4 +1,4 @@
-unit module terms;
+unit module named-terms;
 
 class Ap is export {
     has $.left;
@@ -22,7 +22,6 @@ class Var is export {
 class Abstr is export {
     has $.var;
     has $.term;
-
 
     method print(Str $indent = "") {
         say $indent ~ "λ $.var";
