@@ -1,17 +1,15 @@
 use term-defs;
 
-sub get-var (Str $c where .chars > 0) {
-    return $c ~~ /^<alpha><digit>*/;
-}
-
 sub parse-var(Str $str) {
-    .chars, Var.new(len => .chars, name => .Str) with get-var $str;
+    with $str ~~ /^<alpha><digit>*/ -> $match {
+        return $match.chars, Var.new(len => $match.chars, name => $match.Str)
+    }
 }
 
-sub add-abstractions ($term, @vars) {
+sub apply-abstractions ($term, @vars) {
     return $term unless @vars.elems;
 
-    Abstr.new(var => @vars[0], term => add-abstractions($term, @vars[1..*]))
+    Abstr.new(var => @vars[0], term => apply-abstractions($term, @vars[1..*]))
 }
 
 sub parse-ap($str, &parse) {
@@ -48,11 +46,11 @@ sub parse-abstr(Str $str, &parse) {
     my ($term-len, $term) = (parse($str.substr($vars-len + 3)) orelse return);
     return unless $str.substr(2 + $vars-len + 1 + $term-len, 1) eq ')';
 
-    my $total-len = 2 + $vars-len + $term-len + 1;
-    return $total-len, add-abstractions $term, $vars;
+    my $total-len = 2 + $vars-len + 1 + $term-len + 1;
+    return $total-len, apply-abstractions $term, $vars;
 }
 
-our sub parse($str) is export {
+our sub parse($str) {
     return $_ with parse-var($str);
     return $_ with parse-abstr($str, &parse);
     return $_ with parse-ap($str, &parse);
