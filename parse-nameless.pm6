@@ -35,13 +35,13 @@ sub apply-abstractions ($term, Int $lambdas where * >= 0) {
 }
 
 sub parse-abstr(Str $str, &parse) {
-    return unless $str ~~ /^\( ( <[Llλ]>+ )/;
-    my $lambdas-len = $/[0].chars;
+    return unless $str ~~ /^\( ( <[Llλ]>+ )/; # Must start with '(λ'
+    my $lambdas-count = $/[0].chars; # We allow many λ's at once
 
-    my ($term-len, $term) = (parse($str.substr(1 + $lambdas-len)) orelse return);
-    return unless $str.substr(1 + $lambdas-len + $term-len, 1) eq ')';
+    my ($term-len, $term) = (parse($str.substr(1 + $lambdas-count)) orelse return);
+    return unless $str.substr(1 + $lambdas-count + $term-len, 1) eq ')';
 
-    return 1 + $lambdas-len + $term-len + 1, apply-abstractions $term, $lambdas-len;
+    return 1 + $lambdas-count + $term-len + 1, apply-abstractions $term, $lambdas-count;
 }
 
 our sub parse($str) {
