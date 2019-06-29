@@ -8,9 +8,10 @@ subset Term where Var | Abstr | Ap;
 
 class Var is export {
     has Int $.id;
+    has Int $.depth = 0;
 
     method print(@context, Str $indent = "") {
-        say $indent ~ $.id ~ ": " ~ @context[$.id];
+        say $indent ~ @context[$.id];
     }
     method Str { $.id }
 }
@@ -18,6 +19,7 @@ class Var is export {
 class Ap is export {
     has Term $.left;
     has Term $.right;
+    has Int $.depth;
 
     method print(@context, Str $indent = "") {
         say $indent ~ 'Ap: ';
@@ -27,11 +29,15 @@ class Ap is export {
 }
 
 class Abstr is export {
-    has Term $.term ;
+    has Term $.term;
+    has Int $.depth;
 
     method print(@context, Str $indent = "") {
         say $indent ~ "λ";
-        $.term.print(@context[0..*-1], $indent ~ '  ');
+
+        # The current 'head' of the @context is $.depth
+        my $term-head = $.depth - 1 - $.term.depth;
+        $.term.print(@context[$term-head .. *], $indent ~ '  ');
     }
 }
 

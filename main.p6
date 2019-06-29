@@ -10,6 +10,11 @@ use parse-nameless;
 }
 
 {
-    my ($len, $term) = parse-nameless "(ll(1(2.0)))";
-    $term.print((loop {'x' ~$_})).say with $term;
+    my ($len, $term) = parse-nameless::parse "(ll((l(2.(ll(9.6))))(l(1.2))))";
+
+    say "Parsed" with $term;
+
+    my @context = (1 .. 100).map('x'~*);
+
+    $term.print(@context).say with $term;
 }
