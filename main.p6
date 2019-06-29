@@ -14,7 +14,7 @@ use parse-nameless;
 
     say "Parsed" with $term;
 
-    my @context = (1 .. 100).map('x'~*);
+    my @context = (0 .. 100).map('x'~*);
 
     $term.print(@context).say with $term;
 }

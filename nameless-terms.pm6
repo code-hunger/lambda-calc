@@ -21,10 +21,18 @@ class Ap is export {
     has Term $.right;
     has Int $.depth;
 
+    # Returns the context $term needs so that it receives exactly as many variables as it wants
+    method adjust-context (@context, $term where $.left | $.right) {
+        return @context[$.depth - $term.depth .. *];
+    }
+
     method print(@context, Str $indent = "") {
         say $indent ~ 'Ap: ';
-        $.left.print(@context, $indent ~ '|');
-        $.right.print(@context, $indent ~ '|');
+        my ($adj-left, $adj-right) = self.adjust-context(@context, $.left),
+                                     self.adjust-context(@context, $.right);
+
+        $.left.print($adj-left, $indent ~ '|');
+        $.right.print($adj-right, $indent ~ '|');
     }
 }
 
@@ -33,11 +41,9 @@ class Abstr is export {
     has Int $.depth;
 
     method print(@context, Str $indent = "") {
-        say $indent ~ "λ";
+        say $indent ~ 'λ ' ~ @context[$.depth - 0];
 
-        # The current 'head' of the @context is $.depth
-        my $term-head = $.depth - 1 - $.term.depth;
-        $.term.print(@context[$term-head .. *], $indent ~ '  ');
+        $.term.print(@context, $indent ~ '  ');
     }
 }
 
