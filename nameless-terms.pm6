@@ -4,7 +4,7 @@ class Var { ... };
 class Ap { ... };
 class Abstr { ... };
 
-subset Term where Var | Abstr | Ap;
+subset Term is export where Var | Abstr | Ap;
 
 class Var is export {
     has Int $.id;
