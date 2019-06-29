@@ -21,9 +21,12 @@ class Ap is export {
     has Term $.right;
     has Int $.depth;
 
-    # Returns the context $term needs so that it receives exactly as many variables as it wants
+    # Returns the context $term needs so that it receives exactly as many
+    # variables as it wants
     method adjust-context (@context, $term where $.left | $.right) {
-        return @context[$.depth - $term.depth .. *];
+        # This slice tries (seemingly) to evaluate the whole @context which
+        # makes it impossible to use an infinite context
+        return @context[$.depth - $term.depth .. *]
     }
 
     method print(@context, Str $indent = "") {
