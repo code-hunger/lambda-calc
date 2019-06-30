@@ -2,33 +2,35 @@ unit module parse-named;
 
 use named-terms;
 
+# @NOTE All parse-* functions return both the length of the parsed string and
+# the term parsed, so as to make it easier for a recursive style of programming.
+
 sub parse-var(Str $str) {
     with $str ~~ /^<alpha><digit>*/ -> $match {
         return $match.chars, Var.new(len => $match.chars, name => $match.Str)
     }
 }
 
-sub apply-abstractions ($term, @vars) {
+sub apply-abstractions (Term $term, @vars) {
     return $term unless @vars.elems;
 
     Abstr.new(var => @vars[0], term => apply-abstractions($term, @vars[1..*]))
 }
 
 sub parse-ap($str, &parse) {
-    return unless $str.substr(0, 1) eq '('; # A term must start with a '('!
+    return unless $str.substr(0, 1) eq '(';
 
     my ($len1, $left) = (parse($str.substr(1)) // return);
     my $rest = $str.substr($len1 + 1);
 
     my ($len2, $right) = (parse($rest) // return);
-    return unless $rest.substr($len2, 1) eq ')'; # A term must end in a ')'!
+    return unless $rest.substr($len2, 1) eq ')';
 
-    return 1 + $len1 + $len2 + 1,
-    Ap.new(left => $left, right => $right);
+    return 1 + $len1 + $len2 + 1, Ap.new(left => $left, right => $right);
 }
 
 sub parse-var-list (Str $str) {
-    my @vars ;
+    my @vars;
     my $vars-len = 0;
 
     while parse-var($str.substr($vars-len)) -> ($len, $var) {
