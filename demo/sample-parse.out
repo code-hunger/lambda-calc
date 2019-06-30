@@ -1,0 +1,138 @@
+Parsed named term (λxy.y):
+λ x
+  λ y
+    y
+Parsed named term (λxy.x):
+λ x
+  λ y
+    x
+Parsed named term (λx.x):
+λ x
+  x
+Parsed named term (λxyz.((xz)(yz))):
+λ x
+  λ y
+    λ z
+      Ap: 
+      |Ap: 
+      ||x
+      ||z
+      |Ap: 
+      ||y
+      ||z
+Parsed named term (λyy1y.((x(y(λz1z3.a)))b)):
+λ y
+  λ y1
+    λ y
+      Ap: 
+      |Ap: 
+      ||x
+      ||Ap: 
+      |||y
+      |||λ z1
+      |||  λ z3
+      |||    a
+      |b
+Parsed named term ((λxyz11.(x(λz3z.a1)))((λx.y)(λabcd.((ac)(λx.(bd)))))):
+Ap: 
+|λ x
+|  λ y
+|    λ z11
+|      Ap: 
+|      |x
+|      |λ z3
+|      |  λ z
+|      |    a1
+|Ap: 
+||λ x
+||  y
+||λ a
+||  λ b
+||    λ c
+||      λ d
+||        Ap: 
+||        |Ap: 
+||        ||a
+||        ||c
+||        |λ x
+||        |  Ap: 
+||        |  |b
+||        |  |d
+Parsed nameless term ((1(0.3)).2):
+Ap: 
+|Ap: 
+||x1
+||Ap: 
+|||x0
+|||x3
+|x2
+Parsed nameless term (λ0) # I:
+λ x0
+  x0
+Parsed named term (λλ1) # K:
+Ap: 
+|λ
+|λ1
+Parsed nameless term (λλ1) # K:
+λ x1
+  λ x0
+    x1
+Parsed named term (λλ0) # K*:
+Ap: 
+|λ
+|λ0
+Parsed nameless term (λλ0) # K*:
+λ x1
+  λ x0
+    x0
+Parsed nameless term (λλλ((2.0)(1.0))) # S:
+λ x2
+  λ x1
+    λ x0
+      Ap: 
+      |Ap: 
+      ||x2
+      ||x0
+      |Ap: 
+      ||x1
+      ||x0
+Parsed nameless term (λλ((λ(2.(λλ(9.6))))(λ(1.2)))):
+λ x4
+  λ x3
+    Ap: 
+    |λ x2
+    |  Ap: 
+    |  |x4
+    |  |λ x1
+    |  |  λ x0
+    |  |    Ap: 
+    |  |    |x9
+    |  |    |x6
+    |λ x2
+    |  Ap: 
+    |  |x3
+    |  |x4
+Parsed nameless term (λλ(λ(3(λλ(4(λ2)))))):
+λ x5
+  λ x4
+    λ x3
+      Ap: 
+      |x6
+      |λ x2
+      |  λ x1
+      |    Ap: 
+      |    |x5
+      |    |λ x0
+      |    |  x2
+Parsed nameless term (λλ(λ(4(λλ(2(λ6)))))):
+λ x5
+  λ x4
+    λ x3
+      Ap: 
+      |x7
+      |λ x2
+      |  λ x1
+      |    Ap: 
+      |    |x3
+      |    |λ x0
+      |    |  x6
