@@ -3,6 +3,8 @@
 (λx.x)
 (λxyz.((xz)(yz)))
 
+(lxy.(z(y(ly.yx))))
+
 (λyy1y.((x(y(λz1z3.a)))b))
 ((λxyz11.(x(λz3z.(ya1))))((λx.y)(λabc.((ac)(λx.((by)d))))))
 

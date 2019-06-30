@@ -4,6 +4,7 @@ Before substitution:
 After substitution:
 λ x0
   x0
+
 Before substitution:
 λ x1
   λ x0
@@ -22,6 +23,7 @@ After substitution:
     |    |Ap: 
     |    ||x4
     |    ||x5
+
 Before substitution:
 λ x1
   λ x0
@@ -43,6 +45,7 @@ After substitution:
     |    |||x6
     |    |||λ x0
     |    |||  x6
+
 Before substitution:
 λ x1
   λ x0
@@ -61,6 +64,7 @@ After substitution:
     |    ||x4
     |    ||x5
     |x4
+
 Before substitution:
 Ap: 
 |x1
@@ -77,6 +81,7 @@ Ap:
 |Ap: 
 ||x4
 ||x5
+
 Before substitution:
 Ap: 
 |x1
@@ -96,3 +101,4 @@ Ap:
 |Ap: 
 ||x5
 ||x6
+

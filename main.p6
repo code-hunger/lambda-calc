@@ -6,7 +6,7 @@ use parse-nameless;
 use substitutions;
 
 # Generates a 'x1 x2 x3...' sequence.
-my constant @context = (0 ... 10).map('x' ~ *);
+my constant @context = (0 ... 20).map('x' ~ *);
 # @TODO Should work up to infinity (*), but for some reason it hangs when I
 # make an infinite slice later, although I do not need the whole sequence
 # evaluated. Look at nameless-terms.pm6, Ap::adjust-context().
@@ -21,6 +21,8 @@ sub parse-print ($str) {
         say "Parsed nameless term $str:";
         $term.print(@context);
     }
+
+    print "\n";
 }
 
 sub subst-print($str is copy) {
@@ -47,10 +49,24 @@ sub subst-print($str is copy) {
         }
 
         say "After substitution:";
-        $term.print(@context)
+        $term.print(@context);
+
+        print "\n";
     }
 }
 
-# parse-print $_ for lines();
+sub MAIN($command = "parse")
+{
+    given $command {
+        when "parse" {
+            parse-print $_ for lines();
+        }
+        when "subst" {
+            subst-print $_ for lines();
+        }
+        default {
+            say 'Call with "parse" or "subst"' ;
+        }
+    }
+}
 
-subst-print $_ for lines();
