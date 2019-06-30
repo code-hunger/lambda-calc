@@ -15,8 +15,11 @@ sub unname-print($str) {
     # The context here is thrown away, but can be used if needed
     my ($generated-context, $unnamed) = unname($named, ());
 
-    say "Unnamed and named:";
+    say "Generated context: [$generated-context]";
+    say "Unnamed and then named with an automatic context:";
     $unnamed.print(@context);
+
+    print "\n";
 }
 
 unname-print $_ for lines();
