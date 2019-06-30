@@ -11,7 +11,7 @@ sub parse-var(Str $str) {
 sub parse-ap($str, &parse) {
     return unless $str.substr(0, 1) eq '('; # A term must start with a '('!
 
-    my ($len1, $left) = (parse($str.substr(1)) // return);
+    my ($len1, $left) = parse($str.substr(1)) // return;
     my $rest = $str.substr($len1 + 1);
 
     # Allow ' ' or '.' to sit between applications to separate variables
@@ -20,7 +20,7 @@ sub parse-ap($str, &parse) {
 
     $rest .= substr(1) if $has-separator;
 
-    my ($len2, $right) = (parse($rest) // return);
+    my ($len2, $right) = parse($rest) // return;
     return unless $rest.substr($len2, 1) eq ')'; # A term must end in a ')'!
 
     return 1 + $len1 + ($has-separator) + $len2 + 1,
@@ -34,11 +34,13 @@ sub apply-abstractions ($term, Int $lambdas where * >= 0) {
               depth => $term.depth + $lambdas)
 }
 
+my regex lambda { <[Llλ]> }
+
 sub parse-abstr(Str $str, &parse) {
-    return unless $str ~~ /^\( ( <[Llλ]>+ )/; # Must start with '(λ'
+    return unless $str ~~ /^\( (<lambda>+)/; # Must start with '(λ'
     my $lambdas-count = $/[0].chars; # We allow many λ's at once
 
-    my ($term-len, $term) = (parse($str.substr(1 + $lambdas-count)) orelse return);
+    my ($term-len, $term) = parse($str.substr(1 + $lambdas-count)) // return;
     return unless $str.substr(1 + $lambdas-count + $term-len, 1) eq ')';
 
     return 1 + $lambdas-count + $term-len + 1, apply-abstractions $term, $lambdas-count;
