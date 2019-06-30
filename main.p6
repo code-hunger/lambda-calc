@@ -23,8 +23,15 @@ sub parse-print ($str) {
     }
 }
 
-sub subst-print($str) {
-    with $str ~~ /^ (<-[\|]>+) ( \s* \| \s* (\d+) \s* \→ \s* (<-[\|]>+) )* $/ {
+sub subst-print($str is copy) {
+    my regex term { <-[\|]>+ }
+    my regex number { \d+ }
+    my regex arrow { \→ }
+
+    # Removing spaces from $str makes the regex more readable
+    $str ~~ s:g/\s+//;
+
+    with $str ~~ /^ (<term>) ( \| (<number>) <arrow> (<term>) )* $/ {
         my ($len, $term) = parse-nameless::parse $0.Str;
         warn "Couldn't parse $0" && return unless $term;
 
