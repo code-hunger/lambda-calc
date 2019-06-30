@@ -1,0 +1,137 @@
+Parsed (λxy.y):
+λ x
+  λ y
+    y
+Generated context: []
+Unnamed and then named with an automatic context:
+λ x1
+  λ x0
+    x0
+
+Parsed (λxy.x):
+λ x
+  λ y
+    x
+Generated context: []
+Unnamed and then named with an automatic context:
+λ x1
+  λ x0
+    x1
+
+Parsed (λx.x):
+λ x
+  x
+Generated context: []
+Unnamed and then named with an automatic context:
+λ x0
+  x0
+
+Parsed (λxyz.((xz)(yz))):
+λ x
+  λ y
+    λ z
+      Ap: 
+      |Ap: 
+      ||x
+      ||z
+      |Ap: 
+      ||y
+      ||z
+Generated context: []
+Unnamed and then named with an automatic context:
+λ x2
+  λ x1
+    λ x0
+      Ap: 
+      |Ap: 
+      ||x2
+      ||x0
+      |Ap: 
+      ||x1
+      ||x0
+
+Parsed (λyy1y.((x(y(λz1z3.a)))b)):
+λ y
+  λ y1
+    λ y
+      Ap: 
+      |Ap: 
+      ||x
+      ||Ap: 
+      |||y
+      |||λ z1
+      |||  λ z3
+      |||    a
+      |b
+Generated context: [x a b]
+Unnamed and then named with an automatic context:
+λ x4
+  λ x3
+    λ x2
+      Ap: 
+      |Ap: 
+      ||x5
+      ||Ap: 
+      |||x2
+      |||λ x1
+      |||  λ x0
+      |||    x6
+      |x7
+
+Parsed ((λxyz11.(x(λz3z.(ya1))))((λx.y)(λabc.((ac)(λx.((by)d)))))):
+Ap: 
+|λ x
+|  λ y
+|    λ z11
+|      Ap: 
+|      |x
+|      |λ z3
+|      |  λ z
+|      |    Ap: 
+|      |    |y
+|      |    |a1
+|Ap: 
+||λ x
+||  y
+||λ a
+||  λ b
+||    λ c
+||      Ap: 
+||      |Ap: 
+||      ||a
+||      ||c
+||      |λ x
+||      |  Ap: 
+||      |  |Ap: 
+||      |  ||b
+||      |  ||y
+||      |  |d
+Generated context: [a1 y d]
+Unnamed and then named with an automatic context:
+Ap: 
+|λ x4
+|  λ x3
+|    λ x2
+|      Ap: 
+|      |x4
+|      |λ x1
+|      |  λ x0
+|      |    Ap: 
+|      |    |x3
+|      |    |x5
+|Ap: 
+||λ x4
+||  x6
+||λ x4
+||  λ x3
+||    λ x2
+||      Ap: 
+||      |Ap: 
+||      ||x4
+||      ||x2
+||      |λ x1
+||      |  Ap: 
+||      |  |Ap: 
+||      |  ||x3
+||      |  ||x6
+||      |  |x7
